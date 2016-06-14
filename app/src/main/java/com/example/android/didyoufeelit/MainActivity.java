@@ -70,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
          * {@link Event} object as the result.
          */
         protected Event doInBackground(String... urls) {
+            // Don't perform the request if there are no URLs, or the first URL is null.
+            if (urls.length < 1 || urls[0] == null) {
+                return null;
+            }
+
             Event result = Utils.fetchEarthquakeData(urls[0]);
             return result;
         }
@@ -82,6 +87,11 @@ public class MainActivity extends AppCompatActivity {
          * (which was returned from the doInBackground() method) and update the views on the screen.
          */
         protected void onPostExecute(Event result) {
+            // If there is no result, do nothing.
+            if (result == null) {
+                return;
+            }
+
             updateUi(result);
         }
     }
